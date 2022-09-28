@@ -1,0 +1,12 @@
+.search-button {
+    background-color: var(--blue-button);
+    border-color: var(--blue-button-border);
+    width: 10%;
+    margin-left: 20px;
+    height: 30px;
+}
+
+.search-input {
+    width: 80%;
+    height: 26px;
+}

@@ -1,0 +1,26 @@
+.header-logo-icon {
+    background-image: url(../logo.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 211px;
+    height: 69px;
+    display: inline-block;
+}
+
+.header-logo-link {
+    display: block;
+    margin: 0 18px;
+    padding-top: 5px;
+}
+
+.header-logo-wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.header-main-nav {
+    background-color: var(--header-color);
+    height: 40px;
+    display: flex;
+}

@@ -1,0 +1,18 @@
+:root {
+  /* global color variables */
+  --background-color: #5f6265;
+  --background-color-light: #f0f1f2;
+  --background-color-white: #ffffff;
+  --header-color: #030303;
+  --blue-button: #357AE8;
+  --blue-button-border: #2F5BB7;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
