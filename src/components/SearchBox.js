@@ -2,18 +2,25 @@ import { ReactComponent as SearchIcon } from './search.svg';
 import './SearchBox.css';
 
 const SearchBox = ({ searchHandler }) => {
+
     const handleClick = (e) => {
+        const searchQuery = document.getElementById('search-input').value;
         e.preventDefault();
+        
+        if (searchQuery !== '') {
+            searchHandler(searchQuery);
+        }
     }
 
     const handleSearchInputChange = (e) => {
-        searchHandler(e.target.value);
+        // TODO: update this with autopopulated results
+        // searchHandler(e.target.value);
     };
 
     return (
         <form className="search">
             <input
-                className="search-input"
+                id="search-input"
                 onChange={handleSearchInputChange}
                 type="text"
                 placeholder="Search..."

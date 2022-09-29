@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
+import SearchResults from './components/SearchResults';
 import SearchBox from './components/SearchBox';
-
+import getSearchData from './api/getSearchData';
 
 const App = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const searchHandler = (value) => {
-    setSearchValue(value);
+    getSearchData(value, setSearchValue);
   };
 
   return (
@@ -17,6 +18,9 @@ const App = () => {
         <Header />
         <div className="app-content">
           <SearchBox searchHandler={searchHandler} />
+          {searchValue !== '' &&
+            <SearchResults results={searchValue} />
+          }
         </div>
       </div>
     </div>
