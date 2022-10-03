@@ -1,0 +1,9 @@
+.sort-filter {
+    float: right;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+#sort-filter-dropdown {
+    margin-left: 5px;
+}

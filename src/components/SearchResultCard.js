@@ -1,7 +1,35 @@
+import React from 'react';
 import './SearchResultCard.css';
 
-const SearchResultCard = ({ result }) => {
-    const {date, description, section, thumbnail, title, url} = result;
+const SearchResultCard = ({ result, searchQuery, sectionHandler }) => {
+    const {breadcrumb, date, description, section, thumbnail, title, url} = result;
+
+    const handleClick = (e, section) => {
+        e.preventDefault();
+        sectionHandler(section);
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    };
+
+    // global search regex that returns all matches of string
+    const regexEscape = (text) => text.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&');
+
+    // bold search term when it appears in a given string of text
+    const makeBold = (query) => (text) => {
+        try {
+            return text
+            .split(new RegExp(`(${regexEscape(query)})`, 'i'))
+            .map((section, i) =>
+                i % 2 ? (
+                    <strong key={i}>{section}</strong>
+                ) : (
+                    <React.Fragment key={i}>{section}</React.Fragment>
+                )
+            )
+        } catch (e) {
+            // fallback if there are unexpected characters in searched text
+            return text;
+        }
+    }
 
     return ( 
         <div 
@@ -9,19 +37,35 @@ const SearchResultCard = ({ result }) => {
         >
             <a className="search-result-title-link" href={url} target="_blank" rel="noreferrer">
                 <h2 className="search-result-title">
-                    {title}
+                    {makeBold(searchQuery)(title)}
                 </h2>
             </a>
-            <a href={url} target="_blank" rel="noreferrer">
-                <img className="search-result-thumbnail" src={thumbnail} alt={title}/>
-            </a>
-            <p className="search-result-description">
-                <span className="search-result-name">
+            <p className="search-result-breadcrumb">
+                {breadcrumb}
+            </p>
+            {thumbnail && 
+                <a href={url} target="_blank" rel="noreferrer">
+                    <img className="search-result-thumbnail" src={thumbnail} alt={title}/>
+                </a>
+            }
+            <div className="search-result-description">
+                <span className="search-result-date">
                     {date} 
                 </span> 
-                ... {description}
+                ... {makeBold(searchQuery)(description)}
+            </div>
+            <p className="search-result-label">
+                Labeled 
+                <a 
+                    href={section}
+                    className="search-result-label-link" 
+                    onClick={(e) => {
+                        handleClick(e, section)
+                    }}
+                >
+                    {section}
+                </a>
             </p>
-            <p className="search-result-label">Labeled {section}</p>
         </div>
     );
 }

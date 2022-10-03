@@ -1,7 +1,7 @@
 import { ReactComponent as SearchIcon } from './search.svg';
 import './SearchBox.css';
 
-const SearchBox = ({ searchHandler }) => {
+const SearchBox = ({ searchHandler, inputChangeHandler }) => {
 
     const handleClick = (e) => {
         const searchQuery = document.getElementById('search-input').value;
@@ -10,11 +10,13 @@ const SearchBox = ({ searchHandler }) => {
         if (searchQuery !== '') {
             searchHandler(searchQuery);
         }
-    }
+    };
 
     const handleSearchInputChange = (e) => {
         // TODO: update this with autopopulated results
-        // searchHandler(e.target.value);
+        if (!e.target.value.length) {
+            inputChangeHandler('');
+        }
     };
 
     return (
@@ -22,7 +24,7 @@ const SearchBox = ({ searchHandler }) => {
             <input
                 id="search-input"
                 onChange={handleSearchInputChange}
-                type="text"
+                type="search"
                 placeholder="Search..."
             />
             <button className="search-button" onClick={handleClick}>
