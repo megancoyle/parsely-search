@@ -11,6 +11,8 @@
   --filter-border-color: #dfe1e5;
   --filter-link-color: #CCCCCC;
   --label-link-color: #030303;
+  --loader-color: #616366;
+  --loader-light-color: rgba(173, 171, 171, 0.3);
   --primary-link-color: #FF4F00;
   --primary-link-hover-color: #b93b00;
 }

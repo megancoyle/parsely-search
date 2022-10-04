@@ -1,10 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./SearchResultCard.css";
+import { DEFAULT_IMAGE_URL } from "../api/searchVariables";
 
 const SearchResultCard = ({ result, searchQuery, sectionHandler }) => {
   const { breadcrumb, date, description, section, thumbnail, title, url } =
     result;
+
+  const addDefaultSrc = (e) => {
+    e.target.src = DEFAULT_IMAGE_URL;
+  };
 
   const handleClick = (e, section) => {
     e.preventDefault();
@@ -44,15 +49,14 @@ const SearchResultCard = ({ result, searchQuery, sectionHandler }) => {
         <h2 className="search-result-title">{makeBold(searchQuery)(title)}</h2>
       </a>
       <p className="search-result-breadcrumb">{breadcrumb}</p>
-      {thumbnail && (
-        <a href={url} target="_blank" rel="noreferrer">
-          <img
-            className="search-result-thumbnail"
-            src={thumbnail}
-            alt={title}
-          />
-        </a>
-      )}
+      <a href={url} target="_blank" rel="noreferrer">
+        <img
+          className="search-result-thumbnail"
+          src={thumbnail ? thumbnail : DEFAULT_IMAGE_URL}
+          onError={addDefaultSrc}
+          alt={title}
+        />
+      </a>
       <div className="search-result-description">
         <span className="search-result-date">{date}</span>
         ... {makeBold(searchQuery)(description)}

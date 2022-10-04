@@ -5,7 +5,9 @@ import SearchResults from "./components/SearchResults";
 import SearchBox from "./components/SearchBox";
 import SectionFilters from "./components/SectionFilters";
 import SortFilter from "./components/SortFilter";
+import Loader from "./components/Loader";
 import getSearchData from "./api/getSearchData";
+import { stripOutSpecialCharacters } from "./api/searchUtils";
 import { DEFAULT_SECTION, DEFAULT_SORT } from "./api/searchVariables";
 
 const App = () => {
@@ -13,32 +15,42 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentSection, setCurrentSection] = useState(DEFAULT_SECTION);
   const [currentSort, setSort] = useState(DEFAULT_SORT);
+  const [time, setTime] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const callEndpoint = (query, section, sort) => {
+    const startTime = performance.now();
+    setIsLoading(true);
+    getSearchData(query, setIsLoading, setSearchResults, section, sort);
+    const endTime = performance.now();
+    setTime(((endTime - startTime) / 1000).toFixed(4));
+  };
 
   const inputChangeHandler = (value) => {
     // handles updating search results on clearing the input
     setSearchResults(value);
     setSearchQuery(value);
+    setTime("");
     setCurrentSection(DEFAULT_SECTION);
     setSort(DEFAULT_SORT);
   };
 
   const searchHandler = (value) => {
-    setSearchQuery(value);
-    getSearchData(value, setSearchResults);
-    setCurrentSection(DEFAULT_SECTION);
-    setSort(DEFAULT_SORT);
+    const formatValue = stripOutSpecialCharacters(value);
+    setSearchQuery(formatValue);
+    callEndpoint(formatValue, currentSection, currentSort);
   };
 
   const sectionHandler = (section) => {
     if (currentSection !== section) {
       setCurrentSection(section);
-      getSearchData(searchQuery, setSearchResults, section, currentSort);
+      callEndpoint(searchQuery, section, currentSort);
     }
   };
 
-  const sortFilterHandler = (value) => {
-    getSearchData(searchQuery, setSearchResults, currentSection, value);
-    setSort(value);
+  const sortFilterHandler = (sort) => {
+    setSort(sort);
+    callEndpoint(searchQuery, currentSection, sort);
   };
 
   const isNoResults =
@@ -64,10 +76,13 @@ const App = () => {
                 currentSection={currentSection}
               />
               {isSortFilterVisible && (
-                <SortFilter
-                  sortFilterHandler={sortFilterHandler}
-                  currentSort={currentSort}
-                />
+                <div className="app-number-results-container">
+                  <SortFilter
+                    sortFilterHandler={sortFilterHandler}
+                    currentSort={currentSort}
+                  />
+                  <div className="app-number-results">({time} seconds)</div>
+                </div>
               )}
               <SearchResults
                 results={searchResults}
@@ -76,7 +91,8 @@ const App = () => {
               />
             </>
           )}
-          {isNoResults && (
+          {isLoading && isNoResults && <Loader />}
+          {!isLoading && isNoResults && (
             <p className="app-no-results">
               No results. Try searching for something else.
             </p>
