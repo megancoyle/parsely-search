@@ -21,6 +21,11 @@
     margin-top: 10px;
 }
 
+.search-result-description-text {
+    display: inline;
+    margin-left: 2px;
+}
+
 .search-result-label {
     font-size: 14px;
     margin-top: 5px;

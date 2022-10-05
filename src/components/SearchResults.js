@@ -28,5 +28,5 @@ export default SearchResults;
 SearchResults.propTypes = {
   results: PropTypes.array.isRequired,
   searchQuery: PropTypes.string.isRequired,
-  sectionHandler: PropTypes.func.isRequired,
+  sectionHandler: PropTypes.func,
 };

@@ -21,7 +21,6 @@ const getSearchData = (
       res.data.data.map((item) => ({
         title: item.title,
         breadcrumb: formatBreadcrumb(item.url),
-        // TODO: strip out html elements from the returned string
         description: formatDescription(item.metadata),
         date: formatDate(item.pub_date),
         thumbnail: item.thumb_url_medium,

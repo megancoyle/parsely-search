@@ -3,24 +3,25 @@ import React from "react";
 export const formatBreadcrumb = (string) => {
   try {
     const formattedText = string
+      // replace beginning URL with Ars Technica
       .replace(/https?:\/\/(www\.)?arstechnica.com\//g, "Ars Technica › ")
+      // remove trailing param
       .replace(/\/?\?itm_source=parsely-api/, "")
-      .replace(/\//, " › ")
-      .replace(/\/(?=[^/]*$)/, " › ");
+      // replace all slashes (since date formatting in url slugs isn't consistent)
+      .replace(/\//g, " › ");
     return formattedText;
   } catch (e) {
     return "Ars Technica";
   }
 };
 
-// if the json string is invalid this currently returns an empty string
-// it would be ideal to sanitize the json string somehow so results
-// associated with problematic strings would still return a description
-// instead of the empty string
+// if the json string is invalid, this returns an empty string
 export const formatDescription = (text) => {
   if (text) {
     try {
-      return JSON.parse(text).lower_deck;
+      const parsedString = JSON.parse(text).lower_deck;
+      const stringWithRemovedHtml = parsedString.replace(/(<([^>]+)>)/gi, "");
+      return stringWithRemovedHtml;
     } catch (e) {
       return "";
     }

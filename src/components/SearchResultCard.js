@@ -33,7 +33,8 @@ const SearchResultCard = ({ result, searchQuery, sectionHandler }) => {
       </a>
       <div className="search-result-description">
         <span className="search-result-date">{date}</span>
-        ... {makeBold(searchQuery)(description)}
+        ...
+        <div className="search-result-description-text">{makeBold(searchQuery)(description)}</div>
       </div>
       <p className="search-result-label">
         Labeled
@@ -55,5 +56,5 @@ export default SearchResultCard;
 SearchResultCard.propTypes = {
   result: PropTypes.object.isRequired,
   searchQuery: PropTypes.string.isRequired,
-  sectionHandler: PropTypes.func.isRequired,
+  sectionHandler: PropTypes.func,
 };
