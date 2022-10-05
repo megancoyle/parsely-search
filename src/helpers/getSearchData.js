@@ -1,12 +1,14 @@
 import axios from "axios";
 import { formatDate } from "./dateUtils";
 import { formatBreadcrumb, formatDescription } from "./textUtils";
-import { DEFAULT_SECTION, DEFAULT_SORT } from "./searchVariables";
+import { DEFAULT_PAGE_NUMBER, DEFAULT_SECTION, DEFAULT_SORT } from "./searchVariables";
 
 const getSearchData = (
   query,
   setIsLoading,
   setResults,
+  setPagination,
+  pageNumber = DEFAULT_PAGE_NUMBER,
   section = DEFAULT_SECTION,
   sorting = DEFAULT_SORT
 ) => {
@@ -14,11 +16,13 @@ const getSearchData = (
   const sectionFilter =
     section === DEFAULT_SECTION ? "" : `&section=${encodeURIComponent(section)}`;
   const sortFilter = `&sort=${sorting}`;
-  const url = baseUrl + sectionFilter + sortFilter;
+  const page = `&page=${pageNumber}`;
+  const url = baseUrl + sectionFilter + sortFilter + page;
 
   axios(url)
-    .then((res) =>
-      res.data.data.map((item) => ({
+    .then((res) => {
+      const pagination = res.data.links;
+      const dataResponse = res.data.data.map((item) => ({
         title: item.title,
         breadcrumb: formatBreadcrumb(item.url),
         description: formatDescription(item.metadata),
@@ -26,10 +30,12 @@ const getSearchData = (
         thumbnail: item.thumb_url_medium,
         url: item.url,
         section: item.section,
-      }))
-    )
+      }));
+      return { pagination: pagination.next, response: dataResponse };
+    })
     .then((data) => {
-      setResults(data);
+      setPagination(data.pagination);
+      setResults(data.response);
       setIsLoading(false);
     })
     .catch(() => {

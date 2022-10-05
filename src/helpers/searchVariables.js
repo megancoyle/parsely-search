@@ -1,3 +1,5 @@
+export const DEFAULT_PAGE_NUMBER = 1;
+
 export const DEFAULT_IMAGE_URL =
   "https://images.parsely.com/h1Lmc2PHchUBrZtdsMzePbyAWRI=/85x85/smart/http%3A//cdn.arstechnica.net/wp-content/themes/arstechnica/assets/images/ars-logo-open-grey.png";
 

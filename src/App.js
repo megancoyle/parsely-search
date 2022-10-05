@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
+import Loader from "./components/Loader";
 import SearchResults from "./components/SearchResults";
 import SearchBox from "./components/SearchBox";
 import SectionFilters from "./components/SectionFilters";
 import SortFilter from "./components/SortFilter";
-import Loader from "./components/Loader";
 import getSearchData from "./helpers/getSearchData";
-import { DEFAULT_SECTION, DEFAULT_SORT } from "./helpers/searchVariables";
+import { DEFAULT_PAGE_NUMBER, DEFAULT_SECTION, DEFAULT_SORT } from "./helpers/searchVariables";
 
 const App = () => {
   const [searchResults, setSearchResults] = useState("");
@@ -16,13 +16,20 @@ const App = () => {
   const [currentSort, setSort] = useState(DEFAULT_SORT);
   const [time, setTime] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [pagination, setPagination] = useState(null);
+  const [pageNumber, setPageNumber] = useState(DEFAULT_PAGE_NUMBER);
 
-  const callEndpoint = (query, section, sort) => {
+  const callEndpoint = (query, section, sort, page) => {
     const startTime = performance.now();
     setIsLoading(true);
-    getSearchData(query, setIsLoading, setSearchResults, section, sort);
+    getSearchData(query, setIsLoading, setSearchResults, setPagination, page, section, sort);
     const endTime = performance.now();
     setTime(((endTime - startTime) / 1000).toFixed(4));
+  };
+
+  const paginationHandler = (value) => {
+    setPageNumber(value);
+    callEndpoint(searchQuery, currentSection, currentSort, value);
   };
 
   const inputChangeHandler = (value) => {
@@ -32,25 +39,29 @@ const App = () => {
     setTime("");
     setCurrentSection(DEFAULT_SECTION);
     setSort(DEFAULT_SORT);
+    setPageNumber(DEFAULT_PAGE_NUMBER);
   };
 
   const searchHandler = (value) => {
     setCurrentSection(DEFAULT_SECTION);
     setSort(DEFAULT_SORT);
+    setPageNumber(DEFAULT_PAGE_NUMBER);
     setSearchQuery(value);
-    callEndpoint(value, DEFAULT_SECTION, DEFAULT_SORT);
+    callEndpoint(value, DEFAULT_SECTION, DEFAULT_SORT, DEFAULT_PAGE_NUMBER);
   };
 
   const sectionHandler = (section) => {
     if (currentSection !== section) {
       setCurrentSection(section);
-      callEndpoint(searchQuery, section, currentSort);
+      setPageNumber(DEFAULT_PAGE_NUMBER);
+      callEndpoint(searchQuery, section, currentSort, DEFAULT_PAGE_NUMBER);
     }
   };
 
   const sortFilterHandler = (sort) => {
     setSort(sort);
-    callEndpoint(searchQuery, currentSection, sort);
+    setPageNumber(DEFAULT_PAGE_NUMBER);
+    callEndpoint(searchQuery, currentSection, sort, DEFAULT_PAGE_NUMBER);
   };
 
   const isNoResults =
@@ -70,13 +81,18 @@ const App = () => {
               {isSortFilterVisible && (
                 <div className="app-number-results-container">
                   <SortFilter sortFilterHandler={sortFilterHandler} currentSort={currentSort} />
-                  <div className="app-number-results">({time} seconds)</div>
+                  <div className="app-number-results">
+                    {isSortFilterVisible && `Page ${pageNumber} of results `}({time} seconds)
+                  </div>
                 </div>
               )}
               <SearchResults
                 results={searchResults}
                 searchQuery={searchQuery}
                 sectionHandler={sectionHandler}
+                currentPage={pageNumber}
+                pagination={pagination}
+                paginationHandler={paginationHandler}
               />
             </>
           )}

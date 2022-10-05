@@ -1,0 +1,35 @@
+.pagination-container {
+    border-top: 1px solid var(--filter-border-color);
+    clear: both;
+    overflow: hidden;
+    padding: 20px 8px 8px 8px;
+    margin-top: 20px;
+    font-size: 13px;
+    text-align: center;
+    display: block;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination-next-page {
+    float: right;
+}
+
+.pagination-previous-page {
+    float: left;
+}
+
+.pagination-next-page,
+.pagination-previous-page {
+    text-decoration: none;
+    color: var(--label-link-color);
+}
+
+.pagination-first-page,
+.pagination-last-page {
+    text-decoration: none;
+    cursor: not-allowed;
+    color: var(--disabled-link-color);
+}

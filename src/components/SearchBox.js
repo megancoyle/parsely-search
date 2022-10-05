@@ -17,7 +17,7 @@ const SearchBox = ({ searchHandler, inputChangeHandler }) => {
   const handleSearchInputChange = (e) => {
     // TODO: update this with autopopulated results
     setIsButtonDisabled(false);
-    if (!e.target.value.length) {
+    if (!e.target.value.length || e.target.value.trim() === "") {
       inputChangeHandler("");
       setIsButtonDisabled(true);
     }
