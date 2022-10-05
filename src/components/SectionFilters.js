@@ -16,18 +16,14 @@ const SectionFilters = ({ sectionHandler, currentSection }) => {
           <div
             key={item.label}
             className={
-              currentSection === item.section
-                ? "section-filter-active"
-                : "section-filter"
-            }
-          >
+              currentSection === item.section ? "section-filter-active" : "section-filter"
+            }>
             <a
               href={item.section}
               className="section-filter-link"
               onClick={(e) => {
                 handleSectionFilter(e, item.section);
-              }}
-            >
+              }}>
               {item.label}
             </a>
           </div>

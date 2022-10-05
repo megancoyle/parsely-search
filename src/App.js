@@ -7,7 +7,6 @@ import SectionFilters from "./components/SectionFilters";
 import SortFilter from "./components/SortFilter";
 import Loader from "./components/Loader";
 import getSearchData from "./api/getSearchData";
-import { stripOutSpecialCharacters } from "./api/searchUtils";
 import { DEFAULT_SECTION, DEFAULT_SORT } from "./api/searchVariables";
 
 const App = () => {
@@ -36,9 +35,10 @@ const App = () => {
   };
 
   const searchHandler = (value) => {
-    const formatValue = stripOutSpecialCharacters(value);
-    setSearchQuery(formatValue);
-    callEndpoint(formatValue, currentSection, currentSort);
+    setCurrentSection(DEFAULT_SECTION);
+    setSort(DEFAULT_SORT);
+    setSearchQuery(value);
+    callEndpoint(value, DEFAULT_SECTION, DEFAULT_SORT);
   };
 
   const sectionHandler = (section) => {
@@ -54,9 +54,7 @@ const App = () => {
   };
 
   const isNoResults =
-    searchResults.length === 0 &&
-    searchQuery !== "" &&
-    currentSection === DEFAULT_SECTION;
+    searchResults.length === 0 && searchQuery !== "" && currentSection === DEFAULT_SECTION;
   const isResults = searchQuery !== "" && !isNoResults;
   const isSortFilterVisible = searchResults.length > 0;
 
@@ -65,22 +63,13 @@ const App = () => {
       <div className="app-wrapper">
         <Header />
         <div className="app-content">
-          <SearchBox
-            searchHandler={searchHandler}
-            inputChangeHandler={inputChangeHandler}
-          />
+          <SearchBox searchHandler={searchHandler} inputChangeHandler={inputChangeHandler} />
           {isResults && (
             <>
-              <SectionFilters
-                sectionHandler={sectionHandler}
-                currentSection={currentSection}
-              />
+              <SectionFilters sectionHandler={sectionHandler} currentSection={currentSection} />
               {isSortFilterVisible && (
                 <div className="app-number-results-container">
-                  <SortFilter
-                    sortFilterHandler={sortFilterHandler}
-                    currentSort={currentSort}
-                  />
+                  <SortFilter sortFilterHandler={sortFilterHandler} currentSort={currentSort} />
                   <div className="app-number-results">({time} seconds)</div>
                 </div>
               )}
@@ -93,9 +82,7 @@ const App = () => {
           )}
           {isLoading && isNoResults && <Loader />}
           {!isLoading && isNoResults && (
-            <p className="app-no-results">
-              No results. Try searching for something else.
-            </p>
+            <p className="app-no-results">No results. Try searching for something else.</p>
           )}
         </div>
       </div>

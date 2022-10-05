@@ -1,16 +1,18 @@
 import axios from "axios";
-import { formatBreadcrumb, formatDate, formatDescription } from "./searchUtils";
+import { formatDate } from "./dateUtils";
+import { formatBreadcrumb, formatDescription } from "./textUtils";
+import { DEFAULT_SECTION, DEFAULT_SORT } from "./searchVariables";
 
 const getSearchData = (
   query,
   setIsLoading,
   setResults,
-  section = "All",
-  sorting = "score"
+  section = DEFAULT_SECTION,
+  sorting = DEFAULT_SORT
 ) => {
   const baseUrl = `https://api.parsely.com/v2/search?apikey=arstechnica.com&q=${query}`;
   const sectionFilter =
-    section === "All" ? "" : `&section=${encodeURIComponent(section)}`;
+    section === DEFAULT_SECTION ? "" : `&section=${encodeURIComponent(section)}`;
   const sortFilter = `&sort=${sorting}`;
   const url = baseUrl + sectionFilter + sortFilter;
 

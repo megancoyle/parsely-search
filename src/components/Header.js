@@ -9,8 +9,7 @@ const Header = () => {
           href="https://arstechnica.com"
           target="_blank"
           rel="noopener noreferrer"
-          title="Ars Technica Homepage"
-        >
+          title="Ars Technica Homepage">
           <span className="header-logo-icon"></span>
         </a>
       </div>

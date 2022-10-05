@@ -1,33 +1,44 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
 import "./SearchBox.css";
+import { stripOutSpecialCharacters } from "../api/textUtils";
 
 const SearchBox = ({ searchHandler, inputChangeHandler }) => {
-  const handleClick = (e) => {
-    const searchQuery = document.getElementById("search-input").value;
-    e.preventDefault();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-    if (searchQuery !== "") {
-      searchHandler(searchQuery);
-    }
+  const handleSearch = (e) => {
+    const searchQuery = stripOutSpecialCharacters(document.getElementById("search-input").value);
+    e.preventDefault();
+    searchHandler(searchQuery);
+    setIsButtonDisabled(false);
   };
 
   const handleSearchInputChange = (e) => {
     // TODO: update this with autopopulated results
+    setIsButtonDisabled(false);
     if (!e.target.value.length) {
       inputChangeHandler("");
+      setIsButtonDisabled(true);
     }
   };
 
   return (
-    <form className="search">
+    <form className="search" onSubmit={handleSearch}>
       <input
+        aria-label="search"
+        autoComplete="off"
         id="search-input"
         onChange={handleSearchInputChange}
-        type="search"
         placeholder="Search..."
+        type="search"
       />
-      <button className="search-button" onClick={handleClick}>
+      <button
+        aria-label="load results"
+        className="search-button"
+        onClick={handleSearch}
+        type="button"
+        disabled={isButtonDisabled}>
         <SearchIcon />
       </button>
     </form>
@@ -37,6 +48,6 @@ const SearchBox = ({ searchHandler, inputChangeHandler }) => {
 export default SearchBox;
 
 SearchBox.propTypes = {
-  searchHandler: PropTypes.func.isRequired,
-  inputChangeHandler: PropTypes.func.isRequired,
+  searchHandler: PropTypes.func,
+  inputChangeHandler: PropTypes.func,
 };

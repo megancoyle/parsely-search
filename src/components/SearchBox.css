@@ -8,6 +8,12 @@
     height: 30px;
 }
 
+.search-button:disabled:hover,
+.search-button:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
 .search-button:hover {
     opacity: .9;
     cursor: pointer;
