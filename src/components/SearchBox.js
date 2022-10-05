@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
 import "./SearchBox.css";
-import { stripOutSpecialCharacters } from "../api/textUtils";
+import { stripOutSpecialCharacters } from "../helpers/textUtils";
 
 const SearchBox = ({ searchHandler, inputChangeHandler }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);

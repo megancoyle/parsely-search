@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import "./SortFilter.css";
-import { SORT_FILTERS } from "../api/searchVariables";
+import { SORT_FILTERS } from "../helpers/searchVariables";
 
 const SortFilter = ({ sortFilterHandler, currentSort }) => {
   const handleSortChange = () => {

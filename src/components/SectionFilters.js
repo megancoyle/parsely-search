@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import "./SectionFilters.css";
-import { SECTION_FILTERS } from "../api/searchVariables";
+import { SECTION_FILTERS } from "../helpers/searchVariables";
 
 const SectionFilters = ({ sectionHandler, currentSection }) => {
   const handleSectionFilter = (e, section) => {

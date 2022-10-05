@@ -6,8 +6,8 @@ import SearchBox from "./components/SearchBox";
 import SectionFilters from "./components/SectionFilters";
 import SortFilter from "./components/SortFilter";
 import Loader from "./components/Loader";
-import getSearchData from "./api/getSearchData";
-import { DEFAULT_SECTION, DEFAULT_SORT } from "./api/searchVariables";
+import getSearchData from "./helpers/getSearchData";
+import { DEFAULT_SECTION, DEFAULT_SORT } from "./helpers/searchVariables";
 
 const App = () => {
   const [searchResults, setSearchResults] = useState("");

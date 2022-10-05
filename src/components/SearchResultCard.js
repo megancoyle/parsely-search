@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./SearchResultCard.css";
-import { DEFAULT_IMAGE_URL } from "../api/searchVariables";
-import { makeBold } from "../api/textUtils";
+import { DEFAULT_IMAGE_URL } from "../helpers/searchVariables";
+import { makeBold } from "../helpers/textUtils";
 
 const SearchResultCard = ({ result, searchQuery, sectionHandler }) => {
   const { breadcrumb, date, description, section, thumbnail, title, url } = result;
