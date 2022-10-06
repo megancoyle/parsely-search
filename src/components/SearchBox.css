@@ -1,3 +1,30 @@
+.search-autocomplete {
+    border: 1px solid var(--input-border-color);
+    border-top-width: 0;
+    background: var(--background-color-white);
+    list-style: none;
+    margin-top: 0;
+    max-height: 143px;
+    overflow-y: auto;
+    padding-left: 0;
+    width: 81%;
+    text-align: left;
+    position: absolute;
+    top: 40;
+    z-index: 10;
+    font-size: 13px;
+}
+
+.search-autocomplete li {
+    padding: 8px;
+}
+
+.search-autocomplete>.active,
+.search-autocomplete li:hover {
+    background-color: var(--background-color-light);
+    cursor: pointer;
+}
+
 .search-button {
     background-color: var(--blue-button);
     border-color: var(--blue-button-border);

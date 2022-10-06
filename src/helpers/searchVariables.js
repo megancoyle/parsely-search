@@ -7,6 +7,10 @@ export const DEFAULT_SECTION = "All";
 
 export const DEFAULT_SORT = "score";
 
+export const PREVIOUS_SEARCH_ID = "arsTechnicaSearches";
+
+export const PREVIOUS_SEARCH_LIMIT = 20;
+
 export const SECTION_FILTERS = [
   { label: "All Results", section: "All" },
   { label: "IT", section: "Tech" },

@@ -7,8 +7,9 @@ export const isDateThisWeek = (date) => {
   const numOfDays = Math.round(msBetweenDates / oneDayMs);
 
   if (numOfDays === 0) {
-    const hours = then.getHours();
-    const hourReturnValue = hours <= 1 ? `${hours} hour ago` : `${hours} hours ago`;
+    const msInHour = 1000 * 60 * 60;
+    const hours = Math.round(Math.abs(now - then) / msInHour);
+    const hourReturnValue = hours <= 1 ? `1 hour ago` : `${hours} hours ago`;
     return hourReturnValue;
   }
 
