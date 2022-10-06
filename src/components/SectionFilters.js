@@ -10,7 +10,7 @@ const SectionFilters = ({ sectionHandler, currentSection }) => {
   };
 
   return (
-    <div className="section-filters">
+    <div className="section-filters" data-testid="section-filters">
       {SECTION_FILTERS.map((item) => {
         return (
           <div
@@ -36,6 +36,6 @@ const SectionFilters = ({ sectionHandler, currentSection }) => {
 export default SectionFilters;
 
 SectionFilters.propTypes = {
-  sectionHandler: PropTypes.func.isRequired,
   currentSection: PropTypes.string.isRequired,
+  sectionHandler: PropTypes.func,
 };

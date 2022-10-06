@@ -27,6 +27,6 @@ const SortFilter = ({ sortFilterHandler, currentSort }) => {
 export default SortFilter;
 
 SortFilter.propTypes = {
-  sortFilterHandler: PropTypes.func.isRequired,
   currentSort: PropTypes.string.isRequired,
+  sortFilterHandler: PropTypes.func,
 };

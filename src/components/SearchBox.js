@@ -2,25 +2,27 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
 import "./SearchBox.css";
+import Autocomplete from "./Autocomplete";
 import { stripOutSpecialCharacters } from "../helpers/textUtils";
 import { retrieveData, updatePreviousSearches } from "../helpers/autocompleteUtils";
 
 const SearchBox = ({ searchHandler, inputChangeHandler }) => {
   const [active, setActive] = useState(-1);
   const [filtered, setFiltered] = useState([]);
-  const [isAutocompleteShow, setIsAutocompleteShow] = useState(false);
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [input, setInput] = useState("");
+  const isAutoCompleteVisible = input !== "" && showAutocomplete;
+  const isButtonDisabled = !input || input.trim() === "";
 
   const handleSearch = (e) => {
-    const searchQuery = stripOutSpecialCharacters(document.getElementById("search-input").value);
     e.preventDefault();
-    searchHandler(searchQuery);
-    updatePreviousSearches(searchQuery);
-    setIsAutocompleteShow(false);
+    search(stripOutSpecialCharacters(input));
   };
 
   const handleSearchInputChange = (e) => {
     const input = e.currentTarget.value;
+    // if you don't want to use localStorage for suggestions, plug in the value for an
+    // endpoint or static data file in place of retrieveData();
     const suggestions = retrieveData();
     if (suggestions !== null) {
       const newFilteredSuggestions = suggestions
@@ -28,10 +30,10 @@ const SearchBox = ({ searchHandler, inputChangeHandler }) => {
         .slice(0, 4);
       setActive(-1);
       setFiltered(newFilteredSuggestions);
-      setIsAutocompleteShow(true);
+      setShowAutocomplete(true);
     }
-    setInput(e.currentTarget.value);
-    if (!e.target.value.length || e.target.value.trim() === "") {
+    setInput(input);
+    if (!input.length || input.trim() === "") {
       inputChangeHandler("");
     }
   };
@@ -39,17 +41,15 @@ const SearchBox = ({ searchHandler, inputChangeHandler }) => {
   const handleOnClick = (e) => {
     setActive(-1);
     setFiltered([]);
-    setIsAutocompleteShow(false);
-    setInput(e.currentTarget.innerText);
+    search(e.currentTarget.innerText);
   };
 
   const handleOnKeyDown = (e) => {
     if (e.keyCode === 13) {
       // enter key
       setActive(-1);
-      setIsAutocompleteShow(false);
-      setInput(filtered[active]);
-      setInput(e.currentTarget.value);
+      setShowAutocomplete(false);
+      filtered[active] ? setInput(filtered[active]) : setInput(e.currentTarget.value);
     } else if (e.keyCode === 38) {
       // up arrow
       return active === -1 ? null : setActive(active - 1);
@@ -60,49 +60,41 @@ const SearchBox = ({ searchHandler, inputChangeHandler }) => {
     }
   };
 
-  const renderAutocomplete = () => {
-    if (isAutocompleteShow && input) {
-      if (filtered.length) {
-        return (
-          <ul className="search-autocomplete">
-            {filtered.map((suggestion, index) => {
-              let className;
-              if (index === active) {
-                className = "active";
-              }
-              return (
-                <li className={className} key={suggestion} onClick={handleOnClick}>
-                  {suggestion}
-                </li>
-              );
-            })}
-          </ul>
-        );
-      }
-    }
-    return;
+  const search = (searchInput) => {
+    setShowAutocomplete(false);
+    setInput(searchInput);
+    searchHandler(searchInput);
+    updatePreviousSearches(searchInput);
   };
 
   return (
-    <form className="search" onSubmit={handleSearch}>
-      <input
-        aria-label="search"
-        autoComplete="off"
-        id="search-input"
-        onChange={handleSearchInputChange}
-        onKeyDown={handleOnKeyDown}
-        placeholder="Search..."
-        type="search"
-      />
+    <form className="search-form" onSubmit={handleSearch}>
+      <div className="search-input-container">
+        <input
+          aria-label="search"
+          autoComplete="off"
+          id="search-input"
+          onChange={handleSearchInputChange}
+          onKeyDown={handleOnKeyDown}
+          placeholder="Search..."
+          type="search"
+          value={input}
+        />
+        <Autocomplete
+          active={active}
+          filtered={filtered}
+          handleOnClick={handleOnClick}
+          showAutocomplete={isAutoCompleteVisible}
+        />
+      </div>
       <button
         aria-label="load results"
         className="search-button"
         onClick={handleSearch}
         type="button"
-        disabled={!input}>
+        disabled={isButtonDisabled}>
         <SearchIcon />
       </button>
-      {renderAutocomplete()}
     </form>
   );
 };

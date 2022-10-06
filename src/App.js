@@ -4,8 +4,6 @@ import Header from "./components/Header";
 import Loader from "./components/Loader";
 import SearchResults from "./components/SearchResults";
 import SearchBox from "./components/SearchBox";
-import SectionFilters from "./components/SectionFilters";
-import SortFilter from "./components/SortFilter";
 import getSearchData from "./helpers/getSearchData";
 import { DEFAULT_PAGE_NUMBER, DEFAULT_SECTION, DEFAULT_SORT } from "./helpers/searchVariables";
 
@@ -32,20 +30,22 @@ const App = () => {
     callEndpoint(searchQuery, currentSection, currentSort, value);
   };
 
-  const inputChangeHandler = (value) => {
-    // handles updating search results on clearing the input
-    setSearchResults(value);
-    setSearchQuery(value);
-    setTime("");
+  const resetFiltersAndPage = () => {
     setCurrentSection(DEFAULT_SECTION);
     setSort(DEFAULT_SORT);
     setPageNumber(DEFAULT_PAGE_NUMBER);
   };
 
+  const inputChangeHandler = (value) => {
+    // handles updating search results on clearing the input
+    setSearchResults(value);
+    setSearchQuery(value);
+    setTime(value);
+    resetFiltersAndPage();
+  };
+
   const searchHandler = (value) => {
-    setCurrentSection(DEFAULT_SECTION);
-    setSort(DEFAULT_SORT);
-    setPageNumber(DEFAULT_PAGE_NUMBER);
+    resetFiltersAndPage();
     setSearchQuery(value);
     callEndpoint(value, DEFAULT_SECTION, DEFAULT_SORT, DEFAULT_PAGE_NUMBER);
   };
@@ -67,7 +67,6 @@ const App = () => {
   const isNoResults =
     searchResults.length === 0 && searchQuery !== "" && currentSection === DEFAULT_SECTION;
   const isResults = searchQuery !== "" && !isNoResults;
-  const isSortFilterVisible = searchResults.length > 0;
 
   return (
     <div className="app">
@@ -76,25 +75,18 @@ const App = () => {
         <div className="app-content">
           <SearchBox searchHandler={searchHandler} inputChangeHandler={inputChangeHandler} />
           {isResults && (
-            <>
-              <SectionFilters sectionHandler={sectionHandler} currentSection={currentSection} />
-              {isSortFilterVisible && (
-                <div className="app-number-results-container">
-                  <SortFilter sortFilterHandler={sortFilterHandler} currentSort={currentSort} />
-                  <div className="app-number-results">
-                    {isSortFilterVisible && `Page ${pageNumber} of results `}({time} seconds)
-                  </div>
-                </div>
-              )}
-              <SearchResults
-                results={searchResults}
-                searchQuery={searchQuery}
-                sectionHandler={sectionHandler}
-                currentPage={pageNumber}
-                pagination={pagination}
-                paginationHandler={paginationHandler}
-              />
-            </>
+            <SearchResults
+              currentPage={pageNumber}
+              currentSection={currentSection}
+              currentSort={currentSort}
+              pagination={pagination}
+              paginationHandler={paginationHandler}
+              searchQuery={searchQuery}
+              sectionHandler={sectionHandler}
+              sortFilterHandler={sortFilterHandler}
+              results={searchResults}
+              time={time}
+            />
           )}
           {isLoading && isNoResults && <Loader />}
           {!isLoading && isNoResults && (
