@@ -22,3 +22,9 @@
     border-bottom: 1px solid var(--filter-border-color);
     font-size: 13px;
 }
+
+@media (max-width: 620px) {
+    .section-filters {
+        display: none;
+    }
+}

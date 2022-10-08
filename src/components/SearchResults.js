@@ -1,54 +1,64 @@
 import PropTypes from "prop-types";
-import Pagination from "./Pagination";
-import SearchResultCard from "./SearchResultCard";
-import SectionFilters from "./SectionFilters";
-import SortFilter from "./SortFilter";
 import "./SearchResults.css";
+import Loader from "./Loader";
+import Pagination from "./Pagination";
+import SectionFilters from "./SectionFilters";
+import SearchResultCard from "./SearchResultCard";
+import SortFilter from "./SortFilter";
+
+// Container for SearchResultsCard, SectionFilters, and SortFilter
 
 const SearchResults = ({
   currentPage,
   currentSection,
   currentSort,
+  isLoading,
   pagination,
   paginationHandler,
   searchQuery,
+  searchResults,
   sectionHandler,
   sortFilterHandler,
-  results,
   time,
 }) => {
-  const hasSectionResults = results.length > 0;
+  const hasSectionResults = searchResults.length > 0;
 
   return (
     <>
-      <SectionFilters sectionHandler={sectionHandler} currentSection={currentSection} />
+      <SectionFilters currentSection={currentSection} sectionHandler={sectionHandler} />
       {hasSectionResults && (
-        <div className="app-number-results-container">
-          <SortFilter sortFilterHandler={sortFilterHandler} currentSort={currentSort} />
-          <div className="app-number-results">
+        <div className="search-results-time-container">
+          <SortFilter currentSort={currentSort} sortFilterHandler={sortFilterHandler} />
+          <div className="search-results-time">
             {hasSectionResults && `Page ${currentPage} of results `}({time} seconds)
           </div>
         </div>
       )}
-      {!hasSectionResults && <p className="app-no-results">No results for this section.</p>}
-      <div className="search-results">
-        {results.map((result, i) => {
-          return (
-            <SearchResultCard
-              key={i}
-              result={result}
-              searchQuery={searchQuery}
-              sectionHandler={sectionHandler}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          {!hasSectionResults && <p className="app-no-results">No results for this section.</p>}
+          <div className="search-results">
+            {searchResults.map((result, i) => {
+              return (
+                <SearchResultCard
+                  key={i}
+                  result={result}
+                  searchQuery={searchQuery}
+                  sectionHandler={sectionHandler}
+                />
+              );
+            })}
+          </div>
+          {hasSectionResults && (
+            <Pagination
+              currentPage={currentPage}
+              pagination={pagination}
+              paginationHandler={paginationHandler}
             />
-          );
-        })}
-      </div>
-      {hasSectionResults && (
-        <Pagination
-          currentPage={currentPage}
-          pagination={pagination}
-          paginationHandler={paginationHandler}
-        />
+          )}
+        </>
       )}
     </>
   );
@@ -60,10 +70,11 @@ SearchResults.propTypes = {
   currentPage: PropTypes.number,
   currentSection: PropTypes.string,
   currentSort: PropTypes.string,
+  isLoading: PropTypes.bool,
   pagination: PropTypes.string,
   paginationHandler: PropTypes.func,
-  results: PropTypes.array.isRequired,
   searchQuery: PropTypes.string.isRequired,
+  searchResults: PropTypes.array.isRequired,
   sectionHandler: PropTypes.func,
   sortFilterHandler: PropTypes.func,
   time: PropTypes.string,

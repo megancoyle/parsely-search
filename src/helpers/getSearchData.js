@@ -1,8 +1,10 @@
 import axios from "axios";
+import { DEFAULT_PAGE_NUMBER, DEFAULT_SECTION, DEFAULT_SORT } from "./searchVariables";
 import { formatDate } from "./dateUtils";
 import { formatBreadcrumb, formatDescription } from "./textUtils";
-import { DEFAULT_PAGE_NUMBER, DEFAULT_SECTION, DEFAULT_SORT } from "./searchVariables";
 
+// setIsLoading, setResults, setPagination callbacks are passed to update
+// the current state of loading/results/pagination located in App.js
 const getSearchData = (
   query,
   setIsLoading,

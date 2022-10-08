@@ -1,3 +1,4 @@
+// is date is within this week, it will have a different format than older dates
 export const isDateThisWeek = (date) => {
   const then = new Date(date);
   const now = new Date();
@@ -6,6 +7,7 @@ export const isDateThisWeek = (date) => {
   const daysBetweenDates = msBetweenDates / oneDayMs;
   const numOfDays = Math.round(msBetweenDates / oneDayMs);
 
+  // formats date in hours, i.e. 1 hour ago
   if (numOfDays === 0) {
     const msInHour = 1000 * 60 * 60;
     const hours = Math.round(Math.abs(then - now) / msInHour);
@@ -13,6 +15,7 @@ export const isDateThisWeek = (date) => {
     return hourReturnValue;
   }
 
+  // formats date in days, i.e. 1 day ago
   if (daysBetweenDates <= 7) {
     const dayReturnValue = numOfDays <= 1 ? `${numOfDays} day ago` : `${numOfDays} days ago`;
     return dayReturnValue;

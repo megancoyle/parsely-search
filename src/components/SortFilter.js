@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import "./SortFilter.css";
 import { SORT_FILTERS } from "../helpers/searchVariables";
 
-const SortFilter = ({ sortFilterHandler, currentSort }) => {
+const SortFilter = ({ currentSort, sortFilterHandler }) => {
   const handleSortChange = () => {
     const sortValue = document.getElementById("sort-filter-dropdown").value;
     sortFilterHandler(sortValue);

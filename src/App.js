@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 import "./App.css";
+import { DEFAULT_PAGE_NUMBER, DEFAULT_SECTION, DEFAULT_SORT } from "./helpers/searchVariables";
+import getSearchData from "./helpers/getSearchData";
 import Header from "./components/Header";
 import Loader from "./components/Loader";
-import SearchResults from "./components/SearchResults";
 import SearchBox from "./components/SearchBox";
-import getSearchData from "./helpers/getSearchData";
-import { DEFAULT_PAGE_NUMBER, DEFAULT_SECTION, DEFAULT_SORT } from "./helpers/searchVariables";
+import SearchResults from "./components/SearchResults";
 
+// This holds the root of the application's state logic that is managed via useState hooks
+// and event handlers
 const App = () => {
-  const [searchResults, setSearchResults] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
   const [currentSection, setCurrentSection] = useState(DEFAULT_SECTION);
   const [currentSort, setSort] = useState(DEFAULT_SORT);
-  const [time, setTime] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [pagination, setPagination] = useState(null);
   const [pageNumber, setPageNumber] = useState(DEFAULT_PAGE_NUMBER);
+  const [pagination, setPagination] = useState(null);
+  const [searchResults, setSearchResults] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [time, setTime] = useState("");
 
   const callEndpoint = (query, section, sort, page) => {
     const startTime = performance.now();
@@ -23,6 +25,14 @@ const App = () => {
     getSearchData(query, setIsLoading, setSearchResults, setPagination, page, section, sort);
     const endTime = performance.now();
     setTime(((endTime - startTime) / 1000).toFixed(4));
+  };
+
+  const inputChangeHandler = (value) => {
+    // handles updating search results on clearing the input
+    setSearchResults(value);
+    setSearchQuery(value);
+    setTime(value);
+    resetFiltersAndPage();
   };
 
   const paginationHandler = (value) => {
@@ -34,14 +44,6 @@ const App = () => {
     setCurrentSection(DEFAULT_SECTION);
     setSort(DEFAULT_SORT);
     setPageNumber(DEFAULT_PAGE_NUMBER);
-  };
-
-  const inputChangeHandler = (value) => {
-    // handles updating search results on clearing the input
-    setSearchResults(value);
-    setSearchQuery(value);
-    setTime(value);
-    resetFiltersAndPage();
   };
 
   const searchHandler = (value) => {
@@ -79,12 +81,13 @@ const App = () => {
               currentPage={pageNumber}
               currentSection={currentSection}
               currentSort={currentSort}
+              isLoading={isLoading}
               pagination={pagination}
               paginationHandler={paginationHandler}
               searchQuery={searchQuery}
               sectionHandler={sectionHandler}
               sortFilterHandler={sortFilterHandler}
-              results={searchResults}
+              searchResults={searchResults}
               time={time}
             />
           )}

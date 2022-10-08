@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import "./SectionFilters.css";
 import { SECTION_FILTERS } from "../helpers/searchVariables";
 
-const SectionFilters = ({ sectionHandler, currentSection }) => {
+const SectionFilters = ({ currentSection, sectionHandler }) => {
   const handleSectionFilter = (e, section) => {
     e.preventDefault();
     sectionHandler(section);

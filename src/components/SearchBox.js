@@ -1,18 +1,40 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { ReactComponent as SearchIcon } from "../images/search.svg";
 import "./SearchBox.css";
+import { ReactComponent as SearchIcon } from "../images/search.svg";
 import Autocomplete from "./Autocomplete";
 import { stripOutSpecialCharacters } from "../helpers/textUtils";
 import { retrieveData, updatePreviousSearches } from "../helpers/autocompleteUtils";
 
-const SearchBox = ({ searchHandler, inputChangeHandler }) => {
+const SearchBox = ({ inputChangeHandler, searchHandler }) => {
   const [active, setActive] = useState(-1);
   const [filtered, setFiltered] = useState([]);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [input, setInput] = useState("");
   const isAutoCompleteVisible = input !== "" && showAutocomplete;
   const isButtonDisabled = !input || input.trim() === "";
+
+  const handleOnClick = (e) => {
+    setActive(-1);
+    setFiltered([]);
+    search(e.currentTarget.innerText);
+  };
+
+  const handleOnKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      // enter key
+      setActive(-1);
+      setShowAutocomplete(false);
+      filtered[active] ? setInput(filtered[active]) : setInput(e.currentTarget.value);
+    } else if (e.keyCode === 38) {
+      // up arrow
+      return active === -1 ? null : setActive(active - 1);
+    } else if (e.keyCode === 40) {
+      // down arrow
+      const setIndex = active + 1 > filtered.length - 1 ? setActive(0) : setActive(active + 1);
+      return active - 1 === filtered.length ? null : setIndex;
+    }
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -35,28 +57,6 @@ const SearchBox = ({ searchHandler, inputChangeHandler }) => {
     setInput(input);
     if (!input.length || input.trim() === "") {
       inputChangeHandler("");
-    }
-  };
-
-  const handleOnClick = (e) => {
-    setActive(-1);
-    setFiltered([]);
-    search(e.currentTarget.innerText);
-  };
-
-  const handleOnKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      // enter key
-      setActive(-1);
-      setShowAutocomplete(false);
-      filtered[active] ? setInput(filtered[active]) : setInput(e.currentTarget.value);
-    } else if (e.keyCode === 38) {
-      // up arrow
-      return active === -1 ? null : setActive(active - 1);
-    } else if (e.keyCode === 40) {
-      // down arrow
-      const setIndex = active + 1 > filtered.length - 1 ? setActive(0) : setActive(active + 1);
-      return active - 1 === filtered.length ? null : setIndex;
     }
   };
 
@@ -102,6 +102,6 @@ const SearchBox = ({ searchHandler, inputChangeHandler }) => {
 export default SearchBox;
 
 SearchBox.propTypes = {
-  searchHandler: PropTypes.func,
   inputChangeHandler: PropTypes.func,
+  searchHandler: PropTypes.func,
 };

@@ -25,16 +25,3 @@
     padding: 30px 0 0 0;
   }
 }
-
-.app-number-results {
-  float: left;
-  font-size: 13px;
-  margin-top: 5px;
-}
-
-.app-number-results-container {
-  border-bottom: 1px solid var(--filter-border-color);
-  clear: both;
-  overflow: hidden;
-  padding: 2px 4px 8px 8px;
-}

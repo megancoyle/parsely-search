@@ -3,14 +3,14 @@
   --background-color: #5f6265;
   --background-color-light: #f0f1f2;
   --background-color-white: #ffffff;
-  --header-color: #030303;
-  --input-border-color: #D9D9D9;
   --blue-button: #357AE8;
   --blue-button-border: #2F5BB7;
   --breadcrumb-color: #009933;
   --disabled-link-color: #8e9397;
   --filter-border-color: #dfe1e5;
   --filter-link-color: #CCCCCC;
+  --header-color: #030303;
+  --input-border-color: #D9D9D9;
   --label-link-color: #030303;
   --loader-color: #616366;
   --loader-light-color: rgba(173, 171, 171, 0.3);

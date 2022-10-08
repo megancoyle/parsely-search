@@ -34,19 +34,23 @@ const SearchResultCard = ({ result, searchQuery, sectionHandler }) => {
       <div className="search-result-description">
         <span className="search-result-date">{date}</span>
         ...
-        <div className="search-result-description-text">{makeBold(searchQuery)(description)}</div>
+        <div className="search-result-description-text">
+          {description && makeBold(searchQuery)(description)}
+        </div>
       </div>
-      <p className="search-result-label">
-        Labeled
-        <a
-          href={section}
-          className="search-result-label-link"
-          onClick={(e) => {
-            handleClick(e, section);
-          }}>
-          {section}
-        </a>
-      </p>
+      {section && (
+        <p className="search-result-label">
+          Labeled
+          <a
+            href={section}
+            className="search-result-label-link"
+            onClick={(e) => {
+              handleClick(e, section);
+            }}>
+            {section}
+          </a>
+        </p>
+      )}
     </div>
   );
 };
