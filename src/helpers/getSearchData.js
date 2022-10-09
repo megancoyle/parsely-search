@@ -1,7 +1,7 @@
 import axios from "axios";
 import { DEFAULT_PAGE_NUMBER, DEFAULT_SECTION, DEFAULT_SORT } from "./searchVariables";
 import { formatDate } from "./dateUtils";
-import { formatBreadcrumb, formatDescription } from "./textUtils";
+import { formatBreadcrumb, formatDescription, truncateString } from "./textUtils";
 
 // setIsLoading, setResults, setPagination callbacks are passed to update
 // the current state of loading/results/pagination located in App.js
@@ -25,8 +25,8 @@ const getSearchData = (
     .then((res) => {
       const pagination = res.data.links;
       const dataResponse = res.data.data.map((item) => ({
-        title: item.title,
-        breadcrumb: formatBreadcrumb(item.url),
+        title: truncateString(item.title),
+        breadcrumb: truncateString(formatBreadcrumb(item.url)),
         description: formatDescription(item.metadata),
         date: formatDate(item.pub_date),
         thumbnail: item.thumb_url_medium,

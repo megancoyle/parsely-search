@@ -71,7 +71,7 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
     <form className="search-form" onSubmit={handleSearch}>
       <div className="search-input-container">
         <input
-          aria-label="search"
+          aria-label="Search"
           autoComplete="off"
           id="search-input"
           onChange={handleSearchInputChange}
@@ -88,7 +88,7 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
         />
       </div>
       <button
-        aria-label="load results"
+        aria-label="Load Search Results"
         className="search-button"
         onClick={handleSearch}
         type="button"

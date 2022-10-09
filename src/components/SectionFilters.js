@@ -20,6 +20,7 @@ const SectionFilters = ({ currentSection, sectionHandler }) => {
             }>
             <a
               href={item.section}
+              aria-label={`${item.label} Section Results`}
               className="section-filter-link"
               onClick={(e) => {
                 handleSectionFilter(e, item.section);

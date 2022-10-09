@@ -1,4 +1,5 @@
 import React from "react";
+import { TRUNCATE_STRING_LENGTH } from "./searchVariables";
 
 export const formatBreadcrumb = (string) => {
   try {
@@ -51,4 +52,11 @@ export const makeBold = (query) => (text) => {
 
 export const stripOutSpecialCharacters = (text) => {
   return text.replace(/[^a-z0-9 .,_-]/gim, "").trim();
+};
+
+export const truncateString = (text) => {
+  const maxLength = TRUNCATE_STRING_LENGTH;
+  const truncatedString = `${text.substring(0, maxLength)}...`;
+  const returnedText = text.length > maxLength ? truncatedString : text;
+  return returnedText;
 };

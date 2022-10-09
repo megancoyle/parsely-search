@@ -25,6 +25,7 @@ const Pagination = ({ currentPage, pagination, paginationHandler }) => {
     <div className="pagination-container">
       <a
         href="previous"
+        aria-label="Previous Page of Results"
         className={`pagination-previous-page ${!isNotFirstPage ? "pagination-first-page" : "page"}`}
         onClick={(e) => {
           handlePreviousClick(e);
@@ -34,6 +35,7 @@ const Pagination = ({ currentPage, pagination, paginationHandler }) => {
       <div className="pagination">Page {currentPage} of results</div>
       <a
         href="next"
+        aria-label="Next Page of Results"
         className={`pagination-next-page ${!hasNextPage ? "pagination-last-page" : "page"}`}
         onClick={(e) => {
           handleNextClick(e);

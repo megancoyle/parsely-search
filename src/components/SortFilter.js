@@ -11,7 +11,11 @@ const SortFilter = ({ currentSort, sortFilterHandler }) => {
   return (
     <div className="sort-filter">
       Sort by:
-      <select id="sort-filter-dropdown" onChange={handleSortChange} value={currentSort}>
+      <select
+        aria-label="Sort Results"
+        id="sort-filter-dropdown"
+        onChange={handleSortChange}
+        value={currentSort}>
         {SORT_FILTERS.map((item) => {
           return (
             <option key={item.label} value={item.sort}>

@@ -26,3 +26,5 @@ export const SORT_FILTERS = [
   { label: "Relevance", sort: "score" },
   { label: "Date", sort: "pub_date" },
 ];
+
+export const TRUNCATE_STRING_LENGTH = 100;
