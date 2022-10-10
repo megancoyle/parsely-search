@@ -96,7 +96,6 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
         <button
           aria-label="Reset Search Input"
           className="search-close-icon"
-          data-testid="search-close-icon"
           onClick={handleReset}
           type="reset"
         />

@@ -13,10 +13,12 @@
     display: block;
 }
 
+.pagination-last-page,
 .pagination-next-page {
     float: right;
 }
 
+.pagination-first-page,
 .pagination-previous-page {
     float: left;
 }
@@ -27,8 +29,15 @@
     color: var(--label-link-color);
 }
 
+.pagination-next-page:hover,
+.pagination-previous-page:hover {
+    text-decoration: underline;
+}
+
 .pagination-first-page,
-.pagination-last-page {
+.pagination-first-page:hover,
+.pagination-last-page,
+.pagination-last-page:hover {
     text-decoration: none;
     cursor: not-allowed;
     color: var(--disabled-link-color);

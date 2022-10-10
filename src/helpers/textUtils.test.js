@@ -1,4 +1,4 @@
-import { formatBreadcrumb, formatDescription } from "./textUtils";
+import { formatBreadcrumb, formatDescription, truncateString } from "./textUtils";
 
 describe("textUtils", () => {
   const shortFormattedText = "Ars Technica › apple › 2006 › 10 › 5489";
@@ -30,6 +30,14 @@ describe("textUtils", () => {
   test("formatBreadcrumb without trailing param", () => {
     const url = "http://www.arstechnica.com/video/watch/gear-gadgets-nest-protect-setup-demo";
     expect(formatBreadcrumb(url)).toBe(longFormattedText);
+  });
+
+  test("truncateString shortens a string when it's longer than the TRUNCATE_STRING_LENGTH value", () => {
+    const url =
+      "http://www.arstechnica.com/video/watch/gear-gadgets-nest-protect-setup-demo-gear-gadgets-nest-protect-setup-demo";
+    const truncatedFormatText =
+      "Ars Technica › video › watch › gear-gadgets-nest-protect-setup-demo-gear-gadgets-nest-protect-setup-...";
+    expect(truncateString(formatBreadcrumb(url))).toBe(truncatedFormatText);
   });
 
   test("formatDescription from metadata", () => {

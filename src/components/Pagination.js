@@ -26,7 +26,7 @@ const Pagination = ({ currentPage, pagination, paginationHandler }) => {
       <a
         href="previous"
         aria-label="Previous Page of Results"
-        className={`pagination-previous-page ${!isNotFirstPage ? "pagination-first-page" : "page"}`}
+        className={`${!isNotFirstPage ? "pagination-first-page" : "pagination-previous-page"}`}
         onClick={(e) => {
           handlePreviousClick(e);
         }}>
@@ -36,7 +36,7 @@ const Pagination = ({ currentPage, pagination, paginationHandler }) => {
       <a
         href="next"
         aria-label="Next Page of Results"
-        className={`pagination-next-page ${!hasNextPage ? "pagination-last-page" : "page"}`}
+        className={`${!hasNextPage ? "pagination-last-page" : "pagination-next-page"}`}
         onClick={(e) => {
           handleNextClick(e);
         }}>
