@@ -16,6 +16,7 @@
   --loader-light-color: rgba(173, 171, 171, 0.3);
   --primary-link-color: #FF4F00;
   --primary-link-hover-color: #b93b00;
+  --reset-link-color: #a1b9ed;
 }
 
 body {

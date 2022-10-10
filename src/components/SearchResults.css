@@ -9,6 +9,12 @@
     margin-top: 5px;
 }
 
+@media (max-width: 620px) {
+    .search-results-time {
+        float: none;
+    }
+}
+
 .search-results-time-container {
     border-bottom: 1px solid var(--filter-border-color);
     clear: both;

@@ -67,9 +67,9 @@ const SearchResults = ({
 export default SearchResults;
 
 SearchResults.propTypes = {
-  currentPage: PropTypes.number,
-  currentSection: PropTypes.string,
-  currentSort: PropTypes.string,
+  currentPage: PropTypes.number.isRequired,
+  currentSection: PropTypes.string.isRequired,
+  currentSort: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
   pagination: PropTypes.string,
   paginationHandler: PropTypes.func,

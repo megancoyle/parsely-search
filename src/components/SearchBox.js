@@ -36,6 +36,12 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
     }
   };
 
+  const handleReset = () => {
+    setShowAutocomplete(false);
+    setInput("");
+    inputChangeHandler("");
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     search(stripOutSpecialCharacters(input));
@@ -79,6 +85,14 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
           placeholder="Search..."
           type="search"
           value={input}
+          required
+        />
+        <button
+          aria-label="Reset Search Input"
+          className="search-close-icon"
+          data-testid="search-close-icon"
+          onClick={handleReset}
+          type="reset"
         />
         <Autocomplete
           active={active}
@@ -90,6 +104,7 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
       <button
         aria-label="Load Search Results"
         className="search-button"
+        data-testid="search-button"
         onClick={handleSearch}
         type="button"
         disabled={isButtonDisabled}>

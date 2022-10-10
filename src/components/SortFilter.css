@@ -4,6 +4,12 @@
     margin-top: 5px;
 }
 
+@media (max-width: 620px) {
+    .sort-filter {
+        float: none;
+    }
+}
+
 #sort-filter-dropdown {
     margin-left: 5px;
 }

@@ -2,29 +2,23 @@ import PropTypes from "prop-types";
 import "./Autocomplete.css";
 
 const Autocomplete = ({ active, filtered, handleOnClick, showAutocomplete }) => {
-  if (showAutocomplete) {
-    if (filtered.length) {
-      return (
-        <ul className="autocomplete">
-          {filtered.map((suggestion, index) => {
-            let className;
-            if (index === active) {
-              className = "active";
-            }
-            return (
-              <li
-                className={className}
-                key={suggestion}
-                onClick={(e) => {
-                  handleOnClick(e);
-                }}>
-                {suggestion}
-              </li>
-            );
-          })}
-        </ul>
-      );
-    }
+  if (showAutocomplete && filtered.length) {
+    return (
+      <ul className="autocomplete">
+        {filtered.map((suggestion, index) => {
+          return (
+            <li
+              className={index === active ? "active" : null}
+              key={suggestion}
+              onClick={(e) => {
+                handleOnClick(e);
+              }}>
+              {suggestion}
+            </li>
+          );
+        })}
+      </ul>
+    );
   }
   return;
 };

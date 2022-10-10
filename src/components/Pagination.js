@@ -48,7 +48,7 @@ const Pagination = ({ currentPage, pagination, paginationHandler }) => {
 export default Pagination;
 
 Pagination.propTypes = {
-  currentPage: PropTypes.number,
+  currentPage: PropTypes.number.isRequired,
   pagination: PropTypes.string,
   paginationHandler: PropTypes.func,
 };

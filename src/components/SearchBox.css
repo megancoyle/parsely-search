@@ -1,31 +1,3 @@
-.search-autocomplete {
-    border: 1px solid var(--input-border-color);
-    border-top-width: 0;
-    background: var(--background-color-white);
-    list-style: none;
-    margin-top: 0;
-    max-height: 143px;
-    overflow-y: auto;
-    padding-left: 0;
-    text-align: left;
-    position: absolute;
-    top: 40;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    font-size: 13px;
-}
-
-.search-autocomplete li {
-    padding: 8px;
-}
-
-.search-autocomplete>.active,
-.search-autocomplete li:hover {
-    background-color: var(--background-color-light);
-    cursor: pointer;
-}
-
 .search-button {
     background-color: var(--blue-button);
     border-color: var(--blue-button-border);
@@ -58,9 +30,57 @@
     background: var(--background-color-white);
     border: 1px solid var(--input-border-color);
     padding: 2px 10px;
+    outline: 0;
 }
 
 .search-input-container {
-    position: relative;
     width: 100%;
+}
+
+/* Remove chrome clear button and implement custom button */
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+}
+
+#search-input,
+.search-close-icon,
+.search-input-container {
+    position: relative;
+}
+
+.search-close-icon {
+    border: 1px solid transparent;
+    background-color: transparent;
+    vertical-align: middle;
+    float: right;
+    outline: 0;
+    cursor: pointer;
+}
+
+.search-close-icon:after {
+    content: "x";
+    display: block;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-color: var(--reset-link-color);
+    z-index: 1;
+    right: 10px;
+    top: -23px;
+    margin: 0;
+    bottom: 0;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: normal;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#search-input:not(:valid)~.search-close-icon::after {
+    display: none;
 }

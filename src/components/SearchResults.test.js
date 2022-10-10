@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import SearchResults from "./SearchResults";
+import { DEFAULT_PAGE_NUMBER, DEFAULT_SECTION, DEFAULT_SORT } from "../helpers/searchVariables";
 
 const emptyResults = [];
 const searchResults = [
@@ -16,12 +17,28 @@ const searchResults = [
 
 describe("SearchResults", () => {
   test("it renders a message if no results exist in a section", () => {
-    render(<SearchResults searchResults={emptyResults} searchQuery="apple" />);
+    render(
+      <SearchResults
+        currentPage={DEFAULT_PAGE_NUMBER}
+        currentSection={DEFAULT_SECTION}
+        currentSort={DEFAULT_SORT}
+        searchResults={emptyResults}
+        searchQuery="apple"
+      />
+    );
     expect(screen.getByText("No results for this section.")).toBeInTheDocument();
   });
 
   test("it renders search results if results isn't empty", () => {
-    render(<SearchResults searchResults={searchResults} searchQuery="apple" />);
+    render(
+      <SearchResults
+        currentPage={DEFAULT_PAGE_NUMBER}
+        currentSection={DEFAULT_SECTION}
+        currentSort={DEFAULT_SORT}
+        searchResults={searchResults}
+        searchQuery="apple"
+      />
+    );
     const labelText = screen.getByText(searchResults[0].section);
     const descriptionText = screen.getByText(searchResults[0].description);
     const title = screen.getByText(searchResults[0].title);

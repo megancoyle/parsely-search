@@ -19,9 +19,11 @@ const SearchResultCard = ({ result, searchQuery, sectionHandler }) => {
 
   return (
     <div className="search-result-card">
-      <a className="search-result-title-link" href={url} target="_blank" rel="noreferrer">
-        <h2 className="search-result-title">{makeBold(searchQuery)(title)}</h2>
-      </a>
+      <h2 className="search-result-title">
+        <a className="search-result-title-link" href={url} target="_blank" rel="noreferrer">
+          {makeBold(searchQuery)(title)}
+        </a>
+      </h2>
       <p className="search-result-breadcrumb">{breadcrumb}</p>
       <a href={url} target="_blank" rel="noreferrer">
         <img
