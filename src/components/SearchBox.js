@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import "./SearchBox.css";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
 import Autocomplete from "./Autocomplete";
 import { stripOutSpecialCharacters } from "../helpers/textUtils";
 import { retrieveData, updatePreviousSearches } from "../helpers/autocompleteUtils";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const SearchBox = ({ inputChangeHandler, searchHandler }) => {
   const [active, setActive] = useState(-1);
@@ -13,6 +14,11 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
   const [input, setInput] = useState("");
   const isAutoCompleteVisible = input !== "" && showAutocomplete;
   const isButtonDisabled = !input || input.trim() === "";
+  const ref = useRef();
+
+  useOutsideClick(ref, () => {
+    setShowAutocomplete(false);
+  });
 
   const handleOnClick = (e) => {
     setActive(-1);
@@ -75,7 +81,7 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
 
   return (
     <form className="search-form" onSubmit={handleSearch}>
-      <div className="search-input-container">
+      <div className="search-input-container" ref={ref}>
         <input
           aria-label="Search"
           autoComplete="off"
