@@ -5,32 +5,23 @@ import Pagination from "./Pagination";
 import SectionFilters from "./SectionFilters";
 import SearchResultCard from "./SearchResultCard";
 import SortFilter from "./SortFilter";
+import useSearchContext from "../hooks/useSearchContext";
 
 // Container for SearchResultsCard, SectionFilters, and SortFilter
 
-const SearchResults = ({
-  currentPage,
-  currentSection,
-  currentSort,
-  isLoading,
-  pagination,
-  paginationHandler,
-  searchQuery,
-  searchResults,
-  sectionHandler,
-  sortFilterHandler,
-  time,
-}) => {
+const SearchResults = ({ searchResults }) => {
+  const { currentSection, currentSort, isLoading, pageNumber, pagination, searchQuery, time } =
+    useSearchContext();
   const hasSectionResults = searchResults.length > 0;
 
   return (
     <>
-      <SectionFilters currentSection={currentSection} sectionHandler={sectionHandler} />
+      <SectionFilters currentSection={currentSection} />
       {hasSectionResults && (
         <div className="search-results-time-container">
-          <SortFilter currentSort={currentSort} sortFilterHandler={sortFilterHandler} />
+          <SortFilter currentSort={currentSort} />
           <div className="search-results-time">
-            {hasSectionResults && `Page ${currentPage} of results `}({time} seconds)
+            {hasSectionResults && `Page ${pageNumber} of results `}({time} seconds)
           </div>
         </div>
       )}
@@ -41,23 +32,10 @@ const SearchResults = ({
           {!hasSectionResults && <p className="app-no-results">No results for this section.</p>}
           <div className="search-results">
             {searchResults.map((result, i) => {
-              return (
-                <SearchResultCard
-                  key={i}
-                  result={result}
-                  searchQuery={searchQuery}
-                  sectionHandler={sectionHandler}
-                />
-              );
+              return <SearchResultCard key={i} result={result} searchQuery={searchQuery} />;
             })}
           </div>
-          {hasSectionResults && (
-            <Pagination
-              currentPage={currentPage}
-              pagination={pagination}
-              paginationHandler={paginationHandler}
-            />
-          )}
+          {hasSectionResults && <Pagination pageNumber={pageNumber} pagination={pagination} />}
         </>
       )}
     </>
@@ -67,15 +45,5 @@ const SearchResults = ({
 export default SearchResults;
 
 SearchResults.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  currentSection: PropTypes.string.isRequired,
-  currentSort: PropTypes.string.isRequired,
-  isLoading: PropTypes.bool,
-  pagination: PropTypes.string,
-  paginationHandler: PropTypes.func,
-  searchQuery: PropTypes.string.isRequired,
   searchResults: PropTypes.array.isRequired,
-  sectionHandler: PropTypes.func,
-  sortFilterHandler: PropTypes.func,
-  time: PropTypes.string,
 };

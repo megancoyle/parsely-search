@@ -1,14 +1,16 @@
 import PropTypes from "prop-types";
 import "./Pagination.css";
+import useSearchContext from "../hooks/useSearchContext";
 
-const Pagination = ({ currentPage, pagination, paginationHandler }) => {
-  const isNotFirstPage = currentPage > 1;
+const Pagination = ({ pageNumber, pagination }) => {
+  const { paginationHandler } = useSearchContext();
+  const isNotFirstPage = pageNumber > 1;
   const hasNextPage = pagination !== null;
 
   const handleNextClick = (e) => {
     e.preventDefault();
     if (hasNextPage) {
-      paginationHandler(currentPage + 1);
+      paginationHandler(pageNumber + 1);
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   };
@@ -16,7 +18,7 @@ const Pagination = ({ currentPage, pagination, paginationHandler }) => {
   const handlePreviousClick = (e) => {
     e.preventDefault();
     if (isNotFirstPage) {
-      paginationHandler(currentPage - 1);
+      paginationHandler(pageNumber - 1);
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   };
@@ -32,7 +34,7 @@ const Pagination = ({ currentPage, pagination, paginationHandler }) => {
         }}>
         ‹ Previous
       </a>
-      <div className="pagination">Page {currentPage} of results</div>
+      <div className="pagination">Page {pageNumber} of results</div>
       <a
         href="next"
         aria-label="Next Page of Results"
@@ -48,7 +50,6 @@ const Pagination = ({ currentPage, pagination, paginationHandler }) => {
 export default Pagination;
 
 Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
+  pageNumber: PropTypes.number.isRequired,
   pagination: PropTypes.string,
-  paginationHandler: PropTypes.func,
 };

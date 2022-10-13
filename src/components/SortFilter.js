@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
 import "./SortFilter.css";
 import { SORT_FILTERS } from "../helpers/searchVariables";
+import useSearchContext from "../hooks/useSearchContext";
 
-const SortFilter = ({ currentSort, sortFilterHandler }) => {
+const SortFilter = ({ currentSort }) => {
+  const { sortFilterHandler } = useSearchContext();
+
   const handleSortChange = () => {
     const sortValue = document.getElementById("sort-filter-dropdown").value;
     sortFilterHandler(sortValue);
@@ -32,5 +35,4 @@ export default SortFilter;
 
 SortFilter.propTypes = {
   currentSort: PropTypes.string.isRequired,
-  sortFilterHandler: PropTypes.func,
 };

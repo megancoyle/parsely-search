@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import SearchResultCard from "./SearchResultCard";
+import { SearchProvider } from "../context/SearchContext";
 
 const result = {
   breadcrumb: "Ars Technica",
@@ -13,7 +14,11 @@ const result = {
 
 describe("SearchResultCard", () => {
   test("it renders a search result card", () => {
-    render(<SearchResultCard result={result} searchQuery="apple" />);
+    render(
+      <SearchProvider>
+        <SearchResultCard result={result} searchQuery="apple" />
+      </SearchProvider>
+    );
     const labelText = screen.getByText(result.section);
     const descriptionText = screen.getByText(result.description);
     const title = screen.getByText(result.title);

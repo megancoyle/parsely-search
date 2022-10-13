@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
 import "./SectionFilters.css";
 import { SECTION_FILTERS } from "../helpers/searchVariables";
+import useSearchContext from "../hooks/useSearchContext";
 
-const SectionFilters = ({ currentSection, sectionHandler }) => {
+const SectionFilters = ({ currentSection }) => {
+  const { sectionHandler } = useSearchContext();
+
   const handleSectionFilter = (e, section) => {
     e.preventDefault();
     sectionHandler(section);
-    currentSection = section;
   };
 
   return (
@@ -38,5 +40,4 @@ export default SectionFilters;
 
 SectionFilters.propTypes = {
   currentSection: PropTypes.string.isRequired,
-  sectionHandler: PropTypes.func,
 };

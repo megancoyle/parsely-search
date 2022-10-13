@@ -1,18 +1,19 @@
 import { useState, useRef } from "react";
-import PropTypes from "prop-types";
 import "./SearchBox.css";
 import { ReactComponent as SearchIcon } from "../images/search.svg";
 import Autocomplete from "./Autocomplete";
 import { stripOutSpecialCharacters } from "../helpers/textUtils";
 import { retrieveData, updatePreviousSearches } from "../helpers/autocompleteUtils";
 import useOutsideClick from "../hooks/useOutsideClick";
+import useSearchContext from "../hooks/useSearchContext";
 
-const SearchBox = ({ inputChangeHandler, searchHandler }) => {
+const SearchBox = () => {
+  const { inputChangeHandler, searchHandler } = useSearchContext();
   const [active, setActive] = useState(-1);
   const [filtered, setFiltered] = useState([]);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [input, setInput] = useState("");
-  const isAutoCompleteVisible = input !== "" && showAutocomplete;
+  const isAutocompleteVisible = input !== "" && showAutocomplete;
   const isButtonDisabled = !input || input.trim() === "";
   const ref = useRef();
 
@@ -103,7 +104,7 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
           active={active}
           filtered={filtered}
           handleOnClick={handleOnClick}
-          showAutocomplete={isAutoCompleteVisible}
+          showAutocomplete={isAutocompleteVisible}
         />
       </div>
       <button
@@ -120,8 +121,3 @@ const SearchBox = ({ inputChangeHandler, searchHandler }) => {
 };
 
 export default SearchBox;
-
-SearchBox.propTypes = {
-  inputChangeHandler: PropTypes.func,
-  searchHandler: PropTypes.func,
-};

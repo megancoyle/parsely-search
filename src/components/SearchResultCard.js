@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 import "./SearchResultCard.css";
 import { DEFAULT_IMAGE_URL } from "../helpers/searchVariables";
 import { makeBold } from "../helpers/textUtils";
+import useSearchContext from "../hooks/useSearchContext";
 
-const SearchResultCard = ({ result, searchQuery, sectionHandler }) => {
+const SearchResultCard = ({ result, searchQuery }) => {
   const { breadcrumb, date, description, section, thumbnail, title, url } = result;
+  const { sectionHandler } = useSearchContext();
 
   const addDefaultSrc = (e) => {
     e.target.src = DEFAULT_IMAGE_URL;
@@ -62,5 +64,4 @@ export default SearchResultCard;
 SearchResultCard.propTypes = {
   result: PropTypes.object.isRequired,
   searchQuery: PropTypes.string.isRequired,
-  sectionHandler: PropTypes.func,
 };
