@@ -2,9 +2,9 @@
     background-image: url(../images/logo.svg);
     background-repeat: no-repeat;
     background-size: contain;
+    display: inline-block;
     width: 211px;
     height: 69px;
-    display: inline-block;
 }
 
 .header-logo-link {
@@ -14,13 +14,13 @@
 }
 
 .header-logo-wrapper {
+    align-items: center;
     display: flex;
     flex-flow: row nowrap;
-    align-items: center;
 }
 
 .header-main-nav {
     background-color: var(--header-color);
-    height: 40px;
     display: flex;
+    height: 40px;
 }

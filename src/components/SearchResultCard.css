@@ -1,14 +1,14 @@
 .search-result-card {
-    display: block;
     clear: both;
-    padding-top: 8px;
+    display: block;
     overflow: hidden;
+    padding-top: 8px;
 }
 
 .search-result-breadcrumb {
-    margin: 0 0 0 2px;
     color: var(--breadcrumb-color);
     font-size: 13px;
+    margin: 0 0 0 2px;
 }
 
 .search-result-date {
@@ -47,9 +47,9 @@
 
 .search-result-title {
     font-size: 18px;
+    font-weight: normal;
     margin-bottom: 0;
     margin-left: 2px;
-    font-weight: normal;
 }
 
 .search-result-title-link {

@@ -5,12 +5,12 @@
 .pagination-container {
     border-top: 1px solid var(--filter-border-color);
     clear: both;
+    display: block;
+    font-size: 13px;
+    margin-top: 20px;
     overflow: hidden;
     padding: 20px 8px 8px 8px;
-    margin-top: 20px;
-    font-size: 13px;
     text-align: center;
-    display: block;
 }
 
 .pagination-last-page,
@@ -25,8 +25,8 @@
 
 .pagination-next-page,
 .pagination-previous-page {
-    text-decoration: none;
     color: var(--label-link-color);
+    text-decoration: none;
 }
 
 .pagination-next-page:hover,
@@ -38,7 +38,7 @@
 .pagination-first-page:hover,
 .pagination-last-page,
 .pagination-last-page:hover {
-    text-decoration: none;
-    cursor: not-allowed;
     color: var(--disabled-link-color);
+    cursor: not-allowed;
+    text-decoration: none;    
 }

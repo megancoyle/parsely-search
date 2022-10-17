@@ -1,4 +1,4 @@
-// is date is within this week, it will have a different format than older dates
+// if date is within this week, it will have a different format than older dates
 export const isDateThisWeek = (date) => {
   const then = new Date(date);
   const now = new Date();

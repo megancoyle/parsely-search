@@ -1,9 +1,9 @@
 .section-filter-link {
-    text-decoration: none;
     color: var(--filter-link-color);
     font-weight: bold;
-    padding: 2px 8px 0 8px;
     line-height: 27px;
+    padding: 2px 8px 0 8px;
+    text-decoration: none;
 }
 
 .section-filter,
@@ -17,10 +17,10 @@
 }
 
 .section-filters {
-    text-align: left;
-    margin: 6px 0 4px 0;
     border-bottom: 1px solid var(--filter-border-color);
     font-size: 13px;
+    margin: 6px 0 4px 0;
+    text-align: left;
 }
 
 @media (max-width: 620px) {

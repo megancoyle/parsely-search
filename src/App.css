@@ -4,18 +4,18 @@
 }
 
 .app-content {
-  border-color: var(--background-color-white);
   background-color: var(--background-color-white);
+  border-color: var(--background-color-white);
+  margin-top: 30px;
   min-height: 80vh;
   padding: 20px;
-  margin-top: 30px;
 }
 
 .app-wrapper {
   background-color: var(--background-color-light);
+  margin: 0 auto;
   max-width: 1200px;
   width: 100%;
-  margin: 0 auto;
   padding: 30px;
   position: relative;
 }

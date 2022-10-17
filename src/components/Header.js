@@ -7,8 +7,8 @@ const Header = () => {
         <a
           className="header-logo-link"
           href="https://arstechnica.com"
-          target="_blank"
           rel="noopener noreferrer"
+          target="_blank"
           title="Ars Technica Homepage">
           <span className="header-logo-icon"></span>
         </a>

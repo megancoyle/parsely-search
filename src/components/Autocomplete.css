@@ -2,6 +2,7 @@
     border: 1px solid var(--input-border-color);
     border-top-width: 0;
     background: var(--background-color-white);
+    font-size: 13px;
     list-style: none;
     margin-top: 0;
     max-height: 143px;
@@ -13,7 +14,6 @@
     left: 0;
     right: 0;
     z-index: 10;
-    font-size: 13px;
 }
 
 .autocomplete li {
